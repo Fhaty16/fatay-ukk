@@ -1,0 +1,33 @@
+
+# Database lokal dan data pengguna
+storage/
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.db
+
+# Backup source code
+backup-*/
+backup_*/
+*.backup
+*.backup-*
+*.bak
+
+# Konfigurasi dan informasi rahasia
+.env
+.env.*
+!.env.example
+
+# File sementara dan log
+*.log
+test_mysql_temp.php
+migrate_fatay.php
+
+# Dependency dan file editor
+/vendor/
+/node_modules/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

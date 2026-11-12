@@ -1,0 +1,2845 @@
+
+/* ============================================================
+   FATAY — STYLESHEET UTAMA
+   File: assets/style.css
+
+   FUNGSI FILE CSS:
+   1. Mengatur warna dan font website
+   2. Membuat layout dashboard
+   3. Mengatur sidebar dan navigasi
+   4. Mendesain kalender dan agenda
+   5. Mengatur kartu proyek dan tugas
+   6. Mendesain formulir dan modal
+   7. Mengatur halaman login dan register
+   8. Membuat dark mode
+   9. Mengatur tampilan responsif untuk HP dan tablet
+
+   CSS mengatur tampilan visual, sedangkan interaksi
+   dan pengolahan data dikelola JavaScript serta PHP.
+============================================================ */
+
+/* ============================================================
+   BAGIAN 1 — VARIABEL WARNA DAN DESAIN UTAMA
+   ============================================================
+
+   :root merupakan tempat mendefinisikan variabel CSS.
+
+   Variabel dibuat agar warna dapat digunakan berulang
+   tanpa perlu menulis kode warnanya berkali-kali.
+
+   Contoh:
+   var(--purple) menggunakan warna #8654c9.
+
+   --purple      = warna ungu utama
+   --purple-dark = warna ungu gelap
+   --purple-soft = warna ungu muda
+   --ink         = warna teks utama
+   --muted       = warna teks sekunder
+   --border      = warna garis pembatas
+   --bg          = warna latar belakang
+   --card        = warna kartu
+   --shadow      = efek bayangan kartu
+============================================================ */
+
+:root {
+  --purple: #8654c9;
+  --purple-dark: #56329b;
+  --purple-soft: #f3edfc;
+  --ink: #241b37;
+  --muted: #a09aaf;
+  --border: #efebf5;
+  --bg: #faf9fd;
+  --card: #fff;
+  --shadow: 0 12px 35px rgba(52, 29, 97, 0.045);
+}
+
+/* ============================================================
+   BAGIAN 2 — PENGATURAN DASAR SEMUA ELEMEN
+   ============================================================
+
+   Selector * berarti semua elemen HTML.
+
+   box-sizing: border-box membuat lebar dan tinggi
+   elemen sudah mencakup padding serta border.
+============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   BAGIAN 3 — TAMPILAN DASAR WEBSITE
+   ============================================================
+
+   body merupakan seluruh bagian halaman.
+
+   margin: 0 menghapus jarak bawaan browser.
+   background mengatur warna latar.
+   color mengatur warna tulisan.
+   font-family menentukan jenis font.
+   font-size menentukan ukuran teks dasar.
+============================================================ */
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+}
+
+/* ============================================================
+   BAGIAN 4 — FONT UNTUK JUDUL DAN LOGO
+   ============================================================
+
+   h1, h2, h3, h4 digunakan untuk judul.
+   .brand digunakan untuk tulisan logo Fatay.
+
+   Semuanya menggunakan font Plus Jakarta Sans.
+============================================================ */
+
+h1,
+h2,
+h3,
+h4,
+.brand {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* ============================================================
+   BAGIAN 5 — FONT INPUT DAN TOMBOL
+   ============================================================
+
+   inherit berarti menggunakan pengaturan font
+   yang diwariskan dari elemen induk.
+============================================================ */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Mengubah kursor menjadi tangan ketika di atas tombol. */
+
+button {
+  cursor: pointer;
+}
+
+/* Mengatur tampilan tombol ketika dinonaktifkan. */
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   BAGIAN 6 — MENYEMBUNYIKAN ELEMEN
+   ============================================================
+
+   .hidden digunakan JavaScript untuk menyembunyikan
+   halaman login, dashboard, atau modal.
+
+   display: none berarti elemen tidak ditampilkan.
+
+   !important membuat aturan ini mengutamakan
+   display: none dibanding aturan display biasa.
+============================================================ */
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================================
+   BAGIAN 7 — LAYOUT UTAMA DASHBOARD
+   ============================================================
+
+   .app merupakan pembungkus utama aplikasi.
+
+   display: grid menggunakan CSS Grid.
+
+   grid-template-columns membagi layar menjadi tiga:
+
+   230px = sidebar kiri
+   1fr   = konten tengah yang fleksibel
+   320px = sidebar kanan
+
+   min-height: 100vh membuat aplikasi memiliki
+   tinggi minimal sebesar tinggi layar browser.
+
+   max-width membatasi lebar maksimum dashboard.
+============================================================ */
+
+.app {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr) 320px;
+  min-height: 100vh;
+  max-width: 1800px;
+  margin: auto;
+}
+
+/* ============================================================
+   BAGIAN 8 — SIDEBAR KIRI
+   ============================================================
+
+   Sidebar merupakan menu navigasi utama.
+
+   display: flex membuat elemen menggunakan Flexbox.
+   flex-direction: column menyusunnya secara vertikal.
+
+   position: sticky membuat sidebar tetap berada pada
+   posisi tertentu ketika halaman digulir.
+
+   height: 100vh membuat tingginya satu layar.
+============================================================ */
+
+.sidebar {
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 36px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+/* ============================================================
+   BAGIAN 9 — LOGO FATAY
+   ============================================================
+
+   Mengatur posisi logo dan nama aplikasi.
+
+   gap memberikan jarak antara ikon dan tulisan.
+   font-weight: 800 membuat teks sangat tebal.
+   letter-spacing mengatur jarak antarhuruf.
+   white-space: nowrap mencegah teks turun baris.
+============================================================ */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -1.5px;
+  margin-bottom: 55px;
+  white-space: nowrap;
+}
+
+/* Ikon atau simbol pada logo. */
+
+.brand-mark {
+  font-size: 35px;
+  line-height: 1;
+  color: #9051d2;
+  transform: rotate(-25deg);
+  display: inline-block;
+}
+
+/* Mengatur warna titik pada logo. */
+
+.brand-dot {
+  color: var(--purple);
+}
+
+/* ============================================================
+   BAGIAN 10 — LABEL WORKSPACE
+   ============================================================
+
+   .nav-caption merupakan judul kecil di atas menu.
+
+   Contohnya tulisan WORKSPACE.
+============================================================ */
+
+.nav-caption {
+  color: #bbb3c6;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  margin: 0 0 13px 14px;
+}
+
+/* ============================================================
+   BAGIAN 11 — SUSUNAN MENU NAVIGASI
+   ============================================================
+
+   .nav mengatur menu Dashboard, My Tasks,
+   Projects, Calendar, dan Reports.
+
+   flex-direction: column membuat menu ke bawah.
+============================================================ */
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* ============================================================
+   BAGIAN 12 — TAMPILAN TOMBOL MENU
+   ============================================================
+
+   .nav-link mengatur desain setiap menu sidebar.
+
+   background: transparent berarti tanpa warna latar.
+   border: 0 menghilangkan border bawaan tombol.
+   border-radius membuat sudut membulat.
+   transition membuat pergantian gaya lebih halus.
+============================================================ */
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 13px 16px;
+  color: #9790a3;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+/* ============================================================
+   BAGIAN 13 — EFEK HOVER DAN MENU AKTIF
+   ============================================================
+
+   :hover bekerja ketika kursor berada di atas menu.
+
+   .active merupakan class yang diberikan JavaScript
+   pada menu yang sedang dibuka.
+
+   Contoh:
+   Ketika membuka My Tasks, menu menjadi ungu muda.
+============================================================ */
+
+.nav-link:hover,
+.nav-link.active {
+  background: var(--purple-soft);
+  color: var(--purple-dark);
+}
+
+/* Memberikan garis ungu pada sisi kiri menu aktif. */
+
+.nav-link.active {
+  box-shadow: inset 3px 0 var(--purple);
+}
+
+/* ============================================================
+   BAGIAN 14 — IKON DAN ANGKA JUMLAH TUGAS
+   ============================================================ */
+
+/* Mengatur ukuran dan posisi ikon menu. */
+
+.nav-icon {
+  font-size: 20px;
+  line-height: 1;
+  width: 21px;
+  text-align: center;
+}
+
+/* Menampilkan badge jumlah tugas belum selesai. */
+
+.nav-pill {
+  margin-left: auto;
+  color: #fff;
+  background: #9a70d5;
+  border-radius: 7px;
+  padding: 2px 7px;
+  font-size: 10px;
+}
+
+/* ============================================================
+   BAGIAN 15 — MENU BAWAH SIDEBAR
+   ============================================================
+
+   margin-top: auto mendorong bagian ini
+   ke bawah dalam layout Flexbox.
+
+   Isinya:
+   - Kartu motivasi
+   - Settings
+   - Logout
+============================================================ */
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+/* Kartu motivasi di sidebar kiri. */
+
+.sidebar-tip {
+  border-radius: 19px;
+  padding: 20px 17px;
+  margin: 0 2px 22px;
+  background: #f5efff;
+}
+
+/* Ikon bintang pada kartu motivasi. */
+
+.sidebar-tip .tip-emoji {
+  font-size: 24px;
+  color: var(--purple);
+}
+
+/* Judul motivasi Small steps, big results. */
+
+.sidebar-tip strong {
+  display: block;
+  font: 800 17px/1.4 "Plus Jakarta Sans";
+  margin: 10px 0;
+}
+
+/* Deskripsi motivasi. */
+
+.sidebar-tip p {
+  font-size: 11px;
+  color: #a498b8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================================
+   BAGIAN 16 — WORKSPACE / KONTEN TENGAH
+   ============================================================
+
+   Workspace merupakan tempat halaman utama ditampilkan.
+
+   min-width: 0 membantu mencegah konten Grid
+   memaksa kolom melebar melebihi area yang tersedia.
+
+   padding memberikan jarak dari tepi.
+============================================================ */
+
+.workspace {
+  min-width: 0;
+  padding: 26px 27px 40px;
+}
+
+/* ============================================================
+   BAGIAN 17 — HEADER DASHBOARD
+   ============================================================
+
+   .topbar berisi:
+   - Sapaan pengguna
+   - Tanggal
+   - Notifikasi
+   - Avatar
+
+   justify-content: space-between membuat elemen
+   berada pada sisi kiri dan kanan.
+============================================================ */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+  gap: 14px;
+}
+
+/* Tulisan sapaan seperti Hi, Fhaty. */
+
+.hello {
+  font-size: 18px;
+  font-weight: 800;
+  font-family: "Plus Jakarta Sans";
+}
+
+/* Teks kecil di bawah sapaan pengguna. */
+
+.greeting span {
+  color: #9e7ac2;
+  font-size: 12px;
+}
+
+/* Menyusun tanggal, notifikasi, dan avatar. */
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+/* Tampilan tulisan tanggal hari ini. */
+
+.today-label {
+  font-size: 12px;
+  color: #9e94a9;
+}
+
+/* ============================================================
+   BAGIAN 18 — TOMBOL NOTIFIKASI
+   ============================================================
+
+   position: relative digunakan sebagai acuan posisi
+   bagi indikator notifikasi di dalam tombol.
+============================================================ */
+
+.icon-button {
+  position: relative;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 13px;
+  width: 39px;
+  height: 39px;
+  font-size: 24px;
+  color: var(--purple);
+}
+
+/* Titik merah muda menandakan adanya pemberitahuan. */
+
+#notice-dot {
+  position: absolute;
+  background: #f47f9e;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 9px;
+  height: 9px;
+  right: 8px;
+  top: 7px;
+}
+
+/* ============================================================
+   BAGIAN 19 — AVATAR PENGGUNA
+   ============================================================
+
+   Avatar menggunakan warna gradasi ungu.
+
+   place-items: center membuat huruf inisial
+   berada di tengah avatar.
+============================================================ */
+
+.top-avatar,
+.avatar-pic {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #b88fea, #6942b7);
+  color: #fff;
+  font-weight: 800;
+}
+
+/* Avatar pada header disembunyikan di layar besar. */
+
+.top-avatar {
+  display: none;
+}
+
+/* ============================================================
+   BAGIAN 20 — SIDEBAR KANAN
+   ============================================================
+
+   Menampilkan profil, kalender mini,
+   agenda harian, dan kartu motivasi.
+============================================================ */
+
+.rightbar {
+  padding: 24px 19px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ============================================================
+   BAGIAN 21 — KARTU PROFIL DAN KALENDER
+   ============================================================ */
+
+.profile-box {
+  background: #cab5ed;
+  border-radius: 22px;
+  padding: 18px 13px 14px;
+}
+
+/* Informasi nama dan avatar pengguna. */
+
+.mini-user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0 9px 15px;
+}
+
+/* Nama pengguna. */
+
+.mini-user strong {
+  font-family: "Plus Jakarta Sans";
+  font-size: 13px;
+  display: block;
+}
+
+/* Teks Productivity champion. */
+
+.mini-user small {
+  color: #68517f;
+  font-size: 10px;
+}
+
+/* Avatar berbentuk lingkaran di sidebar kanan. */
+
+.avatar-pic {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  background: #5f368e;
+}
+
+/* ============================================================
+   BAGIAN 22 — HEADER KALENDER
+   ============================================================
+
+   Menampilkan nama bulan dan tombol navigasi.
+============================================================ */
+
+.calendar-head {
+  background: white;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 15px 9px;
+  font-family: "Plus Jakarta Sans";
+}
+
+/* Ukuran nama bulan kalender. */
+
+.calendar-head strong {
+  font-size: 13px;
+}
+
+/* Menyusun tombol bulan sebelumnya dan selanjutnya. */
+
+.month-controls {
+  display: flex;
+  gap: 5px;
+}
+
+/* Desain tombol navigasi bulan. */
+
+.month-controls button {
+  border: 0;
+  background: #f5effe;
+  border-radius: 7px;
+  color: #7657aa;
+  font-size: 21px;
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+}
+
+/* ============================================================
+   BAGIAN 23 — KALENDER MINI
+   ============================================================
+
+   Grid tujuh kolom digunakan karena satu minggu
+   terdiri dari tujuh hari.
+
+   repeat(7, 1fr) berarti setiap kolom
+   memiliki bagian lebar yang sama.
+============================================================ */
+
+.mini-calendar {
+  background: white;
+  padding: 5px 9px 17px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+/* Nama hari pada kalender mini. */
+
+.cal-weekday {
+  font-size: 9px;
+  color: #afa7b8;
+  padding: 4px 0;
+}
+
+/* Tampilan angka tanggal. */
+
+.cal-day {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #665978;
+  position: relative;
+}
+
+/* ============================================================
+   BAGIAN 24 — PENANDA TANGGAL YANG MEMILIKI TUGAS
+   ============================================================
+
+   ::after membuat elemen dekoratif tambahan.
+
+   Titik kecil muncul pada tanggal yang memiliki tugas.
+============================================================ */
+
+.cal-day.has-task::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d59df4;
+  bottom: 2px;
+  left: calc(50% - 2px);
+}
+
+/* Memberikan warna pada tanggal hari ini. */
+
+.cal-day.current {
+  background: #ece2fb;
+  color: #7244b6;
+}
+
+/* Memberikan warna ungu pada tanggal yang dipilih. */
+
+.cal-day.selected {
+  background: var(--purple);
+  color: white;
+}
+
+/* Titik tugas menjadi putih ketika tanggal dipilih. */
+
+.cal-day.selected::after {
+  background: white;
+}
+
+/* ============================================================
+   BAGIAN 25 — JUDUL AGENDA HARI INI
+   ============================================================ */
+
+.schedule-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 7px 13px 11px;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* Tombol Add Task dan tombol teks sederhana. */
+
+.more-link,
+.text-btn {
+  background: none;
+  border: 0;
+  color: var(--purple);
+  font-weight: 800;
+  font-size: 11px;
+}
+
+/* ============================================================
+   BAGIAN 26 — DAFTAR AGENDA
+   ============================================================
+
+   .agenda merupakan wadah jadwal pada tanggal terpilih.
+============================================================ */
+
+.agenda {
+  background: #fff;
+  border-radius: 0 0 15px 15px;
+  padding: 0 12px 13px;
+  min-height: 110px;
+}
+
+/* Satu baris agenda kegiatan. */
+
+.agenda-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #f6f3f9;
+}
+
+/* Tampilan informasi jam agenda. */
+
+.agenda-time {
+  font-size: 10px;
+  color: #b6adbf;
+  width: 44px;
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+/* Konten nama kegiatan dan proyek. */
+
+.agenda-content {
+  border-left: 3px solid #a579da;
+  padding-left: 10px;
+  min-width: 0;
+}
+
+/* Judul kegiatan yang terlalu panjang dipotong. */
+
+.agenda-content strong {
+  font-size: 11px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Informasi pendamping kegiatan. */
+
+.agenda-content small {
+  display: block;
+  color: #aca4b2;
+  font-size: 9px;
+  margin-top: 3px;
+}
+
+/* Pesan ketika tidak ada tugas pada tanggal terpilih. */
+
+.empty-agenda {
+  color: #a59cad;
+  font-size: 11px;
+  padding: 18px 0;
+  text-align: center;
+}
+
+/* ============================================================
+   BAGIAN 27 — KARTU MOTIVASI SIDEBAR KANAN
+   ============================================================
+
+   Kartu ini berisi:
+   - Elemen dekorasi
+   - Tulisan motivasi
+   - Tombol untuk membuat tugas
+============================================================ */
+
+.focus-card {
+  padding: 25px 20px 20px;
+  border-radius: 21px;
+  background: #e2d2f7;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Hiasan bintang pada kartu. */
+
+.focus-stars {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #ae8bde;
+}
+
+/* Ilustrasi utama kartu motivasi. */
+
+.focus-illustration {
+  font-size: 64px;
+  color: #9b6bdc;
+  line-height: 1.2;
+  text-shadow: 9px 9px #c3abeb;
+}
+
+/* Judul Stay focused, stay inspired. */
+
+.focus-card h3 {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 7px 0;
+}
+
+/* Paragraf motivasi. */
+
+.focus-card p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #7d6794;
+}
+
+/* Tombol Create a task pada kartu motivasi. */
+
+.focus-card button {
+  background: white;
+  color: #7845b6;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* ============================================================
+   BAGIAN 28 — KUTIPAN MOTIVASI
+   ============================================================ */
+
+.quote {
+  text-align: center;
+  color: #aca1b9;
+  font-size: 11px;
+  line-height: 1.6;
+  padding: 0 13px;
+}
+
+/* Nama tokoh ditampilkan pada baris tersendiri. */
+
+.quote small {
+  display: block;
+}
+
+/* ============================================================
+   BAGIAN 29 — HERO / BANNER UTAMA DASHBOARD
+   ============================================================
+
+   Hero merupakan banner besar pada dashboard.
+
+   Berisi:
+   - Judul penyemangat
+   - Deskripsi
+   - Tombol Add New Task
+   - Ilustrasi dekoratif
+============================================================ */
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  min-height: 196px;
+  background: #f0ebfc;
+  border-radius: 22px;
+  padding: 27px 28px;
+  position: relative;
+}
+
+/* Teks kecil di atas judul hero. */
+
+.hero-overline {
+  font-size: 11px;
+  color: #9c79c4;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+/* Judul utama banner. */
+
+.hero h1 {
+  font-size: 29px;
+  letter-spacing: -1.2px;
+  line-height: 1.3;
+  margin: 8px 0 7px;
+}
+
+/* Paragraf banner. */
+
+.hero p {
+  color: #9d85b5;
+  font-size: 12px;
+  margin: 0 0 17px;
+}
+
+/* ============================================================
+   BAGIAN 30 — ILUSTRASI HERO
+   ============================================================
+
+   Ilustrasi dibuat dari beberapa bentuk CSS.
+   Tidak memerlukan file gambar eksternal.
+============================================================ */
+
+.hero-art {
+  position: relative;
+  width: 230px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+/* Bentuk lingkaran atau orbit ilustrasi. */
+
+.art-orbit {
+  width: 138px;
+  height: 138px;
+  border: 14px solid #d8c4f6;
+  border-right-color: #9c6cdb;
+  border-bottom-color: #9261d3;
+  border-radius: 50%;
+  transform: rotate(-26deg);
+  box-shadow: 0 16px 30px #cdb5ef;
+}
+
+/* Kotak dengan ikon checklist pada ilustrasi. */
+
+.art-check {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  border-radius: 24px;
+  color: #8b57d4;
+  font-size: 42px;
+  box-shadow: 0 12px 20px #bba0df;
+  transform: rotate(-12deg);
+}
+
+/* Hiasan bintang pada hero. */
+
+.art-spark {
+  position: absolute;
+  top: 5px;
+  right: 18px;
+  font-size: 30px;
+  color: #f4b978;
+}
+
+/* Hiasan kartu kecil pada hero. */
+
+.art-mini {
+  position: absolute;
+  left: 8px;
+  bottom: 14px;
+  background: #fff;
+  padding: 12px 15px;
+  border-radius: 11px;
+  box-shadow: 0 7px 20px #d7c8e9;
+  transform: rotate(9deg);
+  font-size: 19px;
+}
+
+/* ============================================================
+   BAGIAN 31 — DESAIN TOMBOL UTAMA
+   ============================================================
+
+   .btn adalah class dasar tombol aplikasi.
+
+   Digunakan pada:
+   - Add Task
+   - Create Project
+   - Save Changes
+   - Cancel
+   - Delete
+============================================================ */
+
+.btn {
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  font-weight: 800;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+/* Efek tombol sedikit naik ketika cursor diarahkan. */
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Tombol utama berwarna ungu gelap. */
+
+.btn.primary {
+  background: var(--purple-dark);
+  color: white;
+  box-shadow: 0 4px 12px #9874c83b;
+}
+
+/* Tombol sekunder berwarna ungu muda. */
+
+.btn.secondary {
+  background: var(--purple-soft);
+  color: var(--purple-dark);
+}
+
+/* Tombol aksi berbahaya seperti Delete. */
+
+.btn.danger {
+  background: #fff0f3;
+  color: #db5375;
+}
+
+/* Tombol dibuat memenuhi lebar wadah. */
+
+.btn.full {
+  width: 100%;
+}
+
+/* ============================================================
+   BAGIAN 32 — HEADER SETIAP SECTION
+   ============================================================
+
+   Digunakan untuk judul My Projects,
+   Recent Tasks, dan bagian dashboard lainnya.
+============================================================ */
+
+.section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 22px 0 13px;
+}
+
+/* Judul pada section. */
+
+.section-row h2,
+.section-row h3 {
+  font-size: 16px;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+/* Deskripsi section. */
+
+.section-row p {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Tombol View All untuk melihat seluruh data. */
+
+.view-all {
+  border: 0;
+  background: transparent;
+  color: #9c6cc9;
+  font-weight: 800;
+  font-size: 11px;
+}
+
+/* ============================================================
+   BAGIAN 33 — GRID KARTU PROYEK
+   ============================================================
+
+   Menampilkan tiga proyek dalam satu baris
+   pada dashboard ukuran desktop.
+============================================================ */
+
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+/* Desain kartu satu proyek. */
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 17px 17px 14px;
+  min-width: 0;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+/* Border berubah ketika kartu diarahkan kursor. */
+
+.project-card:hover {
+  border-color: #ceb5ee;
+}
+
+/* Tanggal pembuatan atau label proyek. */
+
+.project-date {
+  color: #b2aaba;
+  font-size: 10px;
+}
+
+/* Judul proyek. */
+
+.project-card h3 {
+  font-size: 13px;
+  line-height: 1.35;
+  margin: 10px 0 3px;
+  min-height: 35px;
+}
+
+/* Jumlah tugas di dalam proyek. */
+
+.project-card > small {
+  font-size: 10px;
+  color: #b6adbf;
+}
+
+/* ============================================================
+   BAGIAN 34 — PROGRESS BAR PROYEK
+   ============================================================
+
+   Progress bar menunjukkan persentase tugas
+   yang sudah diselesaikan dalam sebuah proyek.
+
+   JavaScript menghitung persentase.
+   CSS menampilkan batang progres secara visual.
+============================================================ */
+
+.progress-track {
+  height: 6px;
+  background: #eeeaf5;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 14px 0 7px;
+}
+
+/* Batang berwarna yang menunjukkan persentase progres. */
+
+.progress-track > div {
+  height: 100%;
+  background: var(--bar, #9c6cdb);
+  border-radius: 10px;
+}
+
+/* Teks Progress dan persentase pada kartu. */
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #aaa1b6;
+}
+
+/* Angka persentase progres. */
+
+.progress-meta strong {
+  color: #635573;
+}
+
+/* ============================================================
+   BAGIAN 35 — INFORMASI BAWAH KARTU PROYEK
+   ============================================================ */
+
+.project-avatars {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #f4f1f7;
+  margin-top: 14px;
+  padding-top: 10px;
+}
+
+/* Avatar kecil pada kartu proyek. */
+
+.tiny-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f3e7ff;
+  color: #8a61bd;
+  font-weight: 800;
+  font-size: 10px;
+}
+
+/* Label jumlah tugas yang tersisa. */
+
+.project-pill {
+  font-size: 9px;
+  border-radius: 30px;
+  background: #f4effc;
+  color: #8c63c1;
+  padding: 5px 9px;
+  font-weight: 800;
+}
+
+/* ============================================================
+   BAGIAN 36 — AREA BAWAH DASHBOARD
+   ============================================================
+
+   Dibagi menjadi dua kolom:
+   - Grafik produktivitas
+   - Recent Tasks
+============================================================ */
+
+.dashboard-bottom {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+/* Desain panel atau kartu informasi. */
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 19px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+/* Judul panel. */
+
+.panel h3 {
+  font-size: 14px;
+  margin: 0 0 17px;
+}
+
+/* ============================================================
+   BAGIAN 37 — KARTU STATISTIK DASHBOARD
+   ============================================================
+
+   Tiga kartu statistik:
+   - Total Tasks
+   - Completed Tasks
+   - In Progress
+============================================================ */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+  margin: 17px 0;
+}
+
+/* Desain setiap kartu statistik. */
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 18px;
+  position: relative;
+}
+
+/* Ikon kartu statistik. */
+
+.stat-icon {
+  font-size: 21px;
+  color: var(--purple);
+}
+
+/* Angka statistik dari backend. */
+
+.stat-card strong {
+  display: block;
+  font: 800 25px "Plus Jakarta Sans";
+  margin: 9px 0 3px;
+}
+
+/* Label di bawah angka statistik. */
+
+.stat-card span:last-child {
+  font-size: 11px;
+  color: #a49bb1;
+}
+
+/* ============================================================
+   BAGIAN 38 — GRAFIK PRODUKTIVITAS MINGGUAN
+   ============================================================
+
+   Grafik menampilkan jumlah tugas selesai.
+
+   Bentuk grafik menggunakan Flexbox dan CSS,
+   sedangkan datanya disiapkan JavaScript.
+============================================================ */
+
+.weekly-chart {
+  height: 198px;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  gap: 9px;
+  border-bottom: 1px solid #eee9f5;
+  padding: 12px 5px 0;
+}
+
+/* Satu kolom pada grafik. */
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  height: 100%;
+}
+
+/* Batang grafik dengan gradasi ungu. */
+
+.chart-bar {
+  width: min(24px, 85%);
+  height: var(--h);
+  min-height: 6px;
+  border-radius: 7px 7px 2px 2px;
+  background: linear-gradient(#a875e0, #6338b2);
+  position: relative;
+}
+
+/* Nama hari di bawah batang grafik. */
+
+.chart-column small {
+  color: #b2a9bd;
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+/* Memberikan warna berbeda pada batang genap. */
+
+.chart-column:nth-child(even) .chart-bar {
+  background: linear-gradient(#d9c9ed, #b8a0d9);
+}
+
+/* ============================================================
+   BAGIAN 39 — TAMPILAN BARIS TUGAS
+   ============================================================
+
+   Setiap tugas berisi:
+   - Checkbox
+   - Judul tugas
+   - Proyek dan deadline
+   - Prioritas
+   - Tombol edit
+============================================================ */
+
+.list-task {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f0f8;
+}
+
+/* Menghapus border pada tugas terakhir. */
+
+.list-task:last-child {
+  border-bottom: 0;
+}
+
+/* ============================================================
+   BAGIAN 40 — CHECKBOX TUGAS
+   ============================================================
+
+   Checkbox digunakan untuk menandai tugas selesai.
+
+   Status tugas tetap diproses JavaScript dan backend.
+============================================================ */
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #c1a5e6;
+  background: #fff;
+  border-radius: 7px;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+/* Checkbox menjadi ungu ketika tugas selesai. */
+
+.task-checkbox.checked {
+  background: #8a57ce;
+  border-color: #8a57ce;
+}
+
+/* Wadah teks informasi tugas. */
+
+.task-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+/* Judul tugas. */
+
+.task-copy strong {
+  font-size: 12px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Judul dicoret ketika tugas sudah selesai. */
+
+.task-copy strong.done {
+  text-decoration: line-through;
+  color: #afa5bd;
+}
+
+/* Informasi proyek, tanggal, dan status tugas. */
+
+.task-copy small {
+  color: #a89fad;
+  font-size: 10px;
+}
+
+/* ============================================================
+   BAGIAN 41 — LABEL PRIORITAS TUGAS
+   ============================================================
+
+   High   = prioritas tinggi
+   Medium = prioritas sedang
+   Low    = prioritas rendah
+============================================================ */
+
+.priority {
+  font-size: 9px;
+  padding: 5px 8px;
+  border-radius: 20px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Prioritas tinggi berwarna merah. */
+
+.priority.high {
+  background: #fff0ef;
+  color: #e68072;
+}
+
+/* Prioritas sedang berwarna oranye. */
+
+.priority.medium {
+  background: #fff5e8;
+  color: #e8a35b;
+}
+
+/* Prioritas rendah berwarna hijau. */
+
+.priority.low {
+  background: #e9f9f2;
+  color: #5bb997;
+}
+
+/* Tombol edit tugas berbentuk ikon pensil. */
+
+.task-edit {
+  border: 0;
+  background: #f8f5fc;
+  color: #8b67b8;
+  border-radius: 7px;
+  padding: 5px 9px;
+}
+
+/* ============================================================
+   BAGIAN 42 — EMPTY STATE
+   ============================================================
+
+   Empty state adalah tampilan ketika data kosong.
+
+   Contoh:
+   - Belum ada tugas
+   - Belum ada proyek
+   - Hasil pencarian tidak ditemukan
+============================================================ */
+
+.empty {
+  padding: 30px;
+  text-align: center;
+  color: #a7a0b0;
+  font-size: 12px;
+}
+
+/* Ikon pada empty state. */
+
+.empty-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 9px;
+}
+
+/* ============================================================
+   BAGIAN 43 — JUDUL SETIAP HALAMAN
+   ============================================================
+
+   Digunakan pada:
+   My Tasks, Projects, Calendar, Reports, dan Settings.
+============================================================ */
+
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 21px;
+}
+
+/* Judul halaman. */
+
+.page-title h1 {
+  font-size: 26px;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+/* Deskripsi halaman. */
+
+.page-title p {
+  margin: 6px 0;
+  color: #aaa2b2;
+  font-size: 12px;
+}
+
+/* ============================================================
+   BAGIAN 44 — TOOLBAR PENCARIAN DAN FILTER
+   ============================================================
+
+   Toolbar pada halaman My Tasks berisi:
+   - Search Tasks
+   - Filter proyek
+============================================================ */
+
+.toolbar {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+/* Desain input pencarian dan dropdown filter. */
+
+.searchbox,
+.selectbox {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 11px 13px;
+  color: #675a77;
+  min-height: 42px;
+}
+
+/* Kolom pencarian tugas. */
+
+.searchbox {
+  flex: 1;
+  min-width: 180px;
+  outline-color: #bca0e0;
+}
+
+/* Dropdown pilihan proyek. */
+
+.selectbox {
+  min-width: 130px;
+}
+
+/* ============================================================
+   BAGIAN 45 — PANEL DAFTAR TUGAS
+   ============================================================ */
+
+.task-panel {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 8px 18px;
+  box-shadow: var(--shadow);
+}
+
+/* Jarak antarbaris tugas. */
+
+.task-panel .list-task {
+  padding: 16px 0;
+}
+
+/* Ukuran judul tugas dalam halaman My Tasks. */
+
+.task-panel .task-copy strong {
+  font-size: 13px;
+}
+
+/* Informasi tambahan tugas ditampilkan di bawah judul. */
+
+.task-panel .task-copy small {
+  display: block;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   BAGIAN 46 — HALAMAN MANAJEMEN PROYEK
+   ============================================================
+
+   auto-fill membuat jumlah kolom menyesuaikan lebar.
+   minmax(220px, 1fr) memberi lebar minimal setiap kartu.
+============================================================ */
+
+.project-management {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* Ukuran judul proyek pada halaman Projects. */
+
+.project-management .project-card h3 {
+  min-height: 0;
+  font-size: 15px;
+}
+
+/* Area tombol manajemen proyek. */
+
+.project-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+/* Tombol kecil untuk menghapus proyek. */
+
+.small-icon-btn {
+  border: 0;
+  border-radius: 7px;
+  padding: 7px 9px;
+  color: #bc6b86;
+  background: #fff0f3;
+}
+
+/* ============================================================
+   BAGIAN 47 — HALAMAN KALENDER BESAR
+   ============================================================ */
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+/* Membuat kalender tujuh kolom dalam satu minggu. */
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+}
+
+/* Nama hari Senin sampai Minggu. */
+
+.month-weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #b2a9bd;
+  padding: 8px;
+}
+
+/* ============================================================
+   BAGIAN 48 — KOTAK TANGGAL KALENDER
+   ============================================================
+
+   Setiap tanggal dapat menampilkan daftar tugas
+   sesuai deadline yang disimpan pengguna.
+============================================================ */
+
+.month-day {
+  min-height: 94px;
+  border: 1px solid #f0eaf5;
+  border-radius: 11px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: start;
+  padding: 10px;
+  overflow: hidden;
+}
+
+/* Menandai tanggal hari ini. */
+
+.month-day.today {
+  border-color: #9f7bce;
+  background: #fbf8ff;
+}
+
+/* Angka tanggal. */
+
+.month-day .day-number {
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* Tampilan tugas di dalam kotak tanggal. */
+
+.month-day .day-task {
+  width: 100%;
+  font-size: 9px;
+  text-align: left;
+  background: #eee5fb;
+  padding: 4px 5px;
+  border-radius: 5px;
+  color: #8256b0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Kotak kosong untuk menyesuaikan awal minggu. */
+
+.month-day.ghost {
+  background: transparent;
+  border: 0;
+}
+
+/* ============================================================
+   BAGIAN 49 — HALAMAN REPORTS
+   ============================================================
+
+   Laporan menggunakan grid dua kolom
+   untuk menampilkan statistik dan grafik.
+============================================================ */
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+/* Angka statistik ukuran besar. */
+
+.big-number {
+  font: 800 42px "Plus Jakarta Sans";
+  color: #6d42ac;
+  margin: 5px 0;
+}
+
+/* ============================================================
+   BAGIAN 50 — DONUT CHART
+   ============================================================
+
+   Donut chart merupakan grafik berbentuk lingkaran.
+
+   conic-gradient membuat warna progres melingkar.
+
+   --pct merupakan variabel persentase yang diatur
+   JavaScript berdasarkan data statistik.
+============================================================ */
+
+.donut {
+  --pct: 0%;
+  width: 145px;
+  height: 145px;
+  margin: auto;
+  border-radius: 50%;
+  background: conic-gradient(#9360d4 var(--pct), #ece5f6 0);
+  display: grid;
+  place-items: center;
+}
+
+/* Bagian tengah putih pada donut chart. */
+
+.donut span {
+  width: 106px;
+  height: 106px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  font: 800 26px "Plus Jakarta Sans";
+}
+
+/* Baris angka dan kategori laporan. */
+
+.report-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  color: #786e85;
+  font-size: 12px;
+}
+
+/* Indikator warna pada laporan. */
+
+.report-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+/* ============================================================
+   BAGIAN 51 — HALAMAN SETTINGS
+   ============================================================ */
+
+.settings-card {
+  max-width: 550px;
+}
+
+/* Label pada formulir pengaturan. */
+
+.field {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 15px 0;
+  color: #74647e;
+}
+
+/* ============================================================
+   BAGIAN 52 — INPUT, TEXTAREA, DAN SELECT
+   ============================================================
+
+   Digunakan untuk:
+   - Input judul tugas
+   - Input nama proyek
+   - Input nama pengguna
+   - Dropdown prioritas
+   - Dropdown status
+   - Deskripsi tugas
+
+   :focus pada input dapat menggunakan outline-color
+   untuk menunjukkan elemen aktif.
+============================================================ */
+
+.field input,
+.field textarea,
+.field select,
+.auth-card input {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  border: 1px solid #e6dfef;
+  border-radius: 11px;
+  background: white;
+  padding: 12px 13px;
+  outline-color: #a67cd3;
+  color: #382d46;
+}
+
+/* Area deskripsi tugas yang dapat diperbesar secara vertikal. */
+
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ============================================================
+   BAGIAN 53 — GRID FORMULIR
+   ============================================================
+
+   Membuat dua kolom input pada form.
+
+   Contohnya:
+   - Project dan Due Date
+   - Priority dan Status
+============================================================ */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+
+/* ============================================================
+   BAGIAN 54 — MODAL / POPUP
+   ============================================================
+
+   Modal digunakan untuk menampilkan formulir
+   tanpa membuka halaman baru.
+
+   position: fixed membuat overlay memenuhi layar.
+   inset: 0 berarti atas, kanan, bawah, kiri = 0.
+   z-index mengatur urutan lapisan elemen.
+
+   Background transparan gelap membantu
+   memfokuskan perhatian pengguna pada popup.
+============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: #21152c8a;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+/* Kartu utama popup formulir. */
+
+.modal-card {
+  width: min(520px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  border-radius: 23px;
+  background: #fff;
+  padding: 27px;
+  box-shadow: 0 30px 90px #200f2e66;
+}
+
+/* ============================================================
+   BAGIAN 55 — HEADER MODAL
+   ============================================================ */
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+/* Label TASK MANAGEMENT atau PROJECT MANAGEMENT. */
+
+.modal-header small {
+  color: #a57bd4;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+/* Judul modal Create Task atau Edit Task. */
+
+.modal-header h2 {
+  font-size: 22px;
+  margin: 6px 0;
+}
+
+/* Tombol X untuk menutup modal. */
+
+.close-btn {
+  border: 0;
+  background: #f5effa;
+  color: #9267ba;
+  font-size: 25px;
+  width: 35px;
+  height: 35px;
+  border-radius: 9px;
+}
+
+/* ============================================================
+   BAGIAN 56 — TOMBOL BAGIAN BAWAH MODAL
+   ============================================================
+
+   Contohnya:
+   - Delete Task
+   - Cancel
+   - Create Task
+   - Save Changes
+============================================================ */
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Mengelompokkan tombol sebelah kanan modal. */
+
+.modal-footer .right {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============================================================
+   BAGIAN 57 — HALAMAN LOGIN DAN REGISTER
+   ============================================================
+
+   .auth-screen merupakan pembungkus autentikasi.
+
+   min-height: 100vh membuat halaman setinggi layar.
+   place-items: center menempatkan kartu di tengah.
+   linear-gradient memberikan gradasi background.
+============================================================ */
+
+.auth-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  background: linear-gradient(120deg, #f8f5ff, #fff 60%, #efe7fa);
+}
+
+/* ============================================================
+   BAGIAN 58 — DEKORASI BACKGROUND LOGIN
+   ============================================================
+
+   Membuat lingkaran besar ungu muda yang diburamkan
+   untuk mempercantik halaman autentikasi.
+============================================================ */
+
+.auth-decoration {
+  position: absolute;
+  left: -190px;
+  top: -200px;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: #d8c2f6;
+  filter: blur(10px);
+  opacity: 0.4;
+}
+
+/* ============================================================
+   BAGIAN 59 — KARTU LOGIN
+   ============================================================
+
+   Digunakan untuk menampung:
+   - Logo Fatay
+   - Form email dan password
+   - Tombol login
+   - Link register
+   - Informasi akun demo
+============================================================ */
+
+.auth-card {
+  position: relative;
+  width: min(430px, 100%);
+  background: #fff;
+  padding: 40px;
+  border: 1px solid #eee6f6;
+  border-radius: 26px;
+  box-shadow: 0 30px 90px #54318b19;
+}
+
+/* Mengatur jarak logo pada halaman login. */
+
+.auth-brand {
+  margin: 0 0 35px;
+}
+
+/* Teks YOUR PRODUCTIVITY SPACE. */
+
+.auth-eyebrow {
+  color: #9a74ca;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-size: 10px;
+}
+
+/* Judul Welcome Back atau Join Taskify. */
+
+.auth-card h1 {
+  letter-spacing: -1.2px;
+  font-size: 27px;
+  margin: 12px 0 5px;
+}
+
+/* Deskripsi halaman login. */
+
+.auth-card p {
+  color: #9c91ab;
+  font-size: 12px;
+  margin: 0 0 22px;
+}
+
+/* Label Email, Password, dan Nama. */
+
+.auth-card label {
+  display: block;
+  font-size: 12px;
+  color: #62536d;
+  font-weight: 800;
+  margin: 14px 0;
+}
+
+/* Font isi input login tidak terlalu tebal. */
+
+.auth-card input {
+  font-weight: 400;
+}
+
+/* Jarak tombol login dari input terakhir. */
+
+.auth-card .btn {
+  margin-top: 15px;
+}
+
+/* Teks Belum punya akun? Daftar sekarang. */
+
+.auth-card .auth-switch {
+  text-align: center;
+  margin: 21px 0 0;
+}
+
+/* ============================================================
+   BAGIAN 60 — INFORMASI AKUN DEMO
+   ============================================================
+
+   Kartu kecil di bawah login untuk menampilkan
+   email dan password akun demonstrasi.
+============================================================ */
+
+.demo-note {
+  background: #f8f4ff;
+  color: #786395;
+  font-size: 11px;
+  line-height: 1.8;
+  padding: 13px;
+  border-radius: 12px;
+  margin-top: 25px;
+}
+
+/* Warna teks email dan password demo. */
+
+.demo-note strong {
+  color: #6d42ac;
+}
+
+/* ============================================================
+   BAGIAN 61 — TOAST NOTIFICATION
+   ============================================================
+
+   Toast merupakan notifikasi yang muncul sementara.
+
+   position: fixed membuatnya berada di layar.
+   z-index: 50 menempatkannya di atas komponen lain.
+
+   Secara default toast disembunyikan dengan opacity: 0.
+============================================================ */
+
+#toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, -100px);
+  background: #30203e;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 11px;
+  box-shadow: 0 12px 40px #30203e40;
+  z-index: 50;
+  opacity: 0;
+  transition: 0.25s;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* Menampilkan toast dengan animasi turun. */
+
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Warna merah untuk notifikasi error. */
+
+#toast.error {
+  background: #b94369;
+}
+
+/* ============================================================
+   BAGIAN 62 — FILTER STATUS TUGAS
+   ============================================================
+
+   Filter pada halaman My Tasks:
+   - All Tasks
+   - To Do
+   - In Progress
+   - Completed
+============================================================ */
+
+.filter-tabs {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+/* Tampilan tombol filter. */
+
+.filter-tab {
+  border: 1px solid #ece6f5;
+  border-radius: 9px;
+  background: white;
+  color: #9387a3;
+  padding: 9px 14px;
+  font-weight: 800;
+  font-size: 11px;
+}
+
+/* Tombol filter aktif berubah menjadi ungu. */
+
+.filter-tab.active {
+  background: #6d42ac;
+  color: #fff;
+  border-color: #6d42ac;
+}
+
+/* ============================================================
+   BAGIAN 63 — CLASS TAMBAHAN
+   ============================================================ */
+
+/* Warna teks sekunder atau keterangan. */
+
+.muted {
+  color: #9d94aa;
+}
+
+/* Garis pembatas pada judul Settings. */
+
+.settings-head {
+  border-bottom: 1px solid #f0ecf4;
+  padding-bottom: 15px;
+}
+
+/* Tombol kecil untuk pilihan tanggal cepat. */
+
+.quick-date {
+  border: 0;
+  background: #f1e6fc;
+  color: #754bb6;
+  border-radius: 7px;
+  padding: 3px 7px;
+  font-size: 10px;
+}
+
+/* Margin pada komponen grafik laporan. */
+
+.report-chart {
+  margin: 5px 0 0;
+}
+
+/* ============================================================
+   BAGIAN 64 — DARK MODE
+   ============================================================
+
+   body.dark aktif ketika JavaScript menambahkan
+   class "dark" pada elemen body.
+
+   Variabel CSS utama diganti menjadi warna gelap.
+
+   Dengan begitu, beberapa komponen yang menggunakan
+   var(--bg), var(--card), dan variabel lainnya
+   otomatis ikut berubah.
+============================================================ */
+
+body.dark {
+  --bg: #181424;
+  --card: #251e34;
+  --ink: #f9f6ff;
+  --border: #3a304b;
+  --purple-soft: #38274e;
+  --muted: #b4a8c4;
+  --shadow: none;
+}
+
+/* ============================================================
+   BAGIAN 65 — BACKGROUND KOMPONEN DARK MODE
+   ============================================================
+
+   Menyamakan background kartu menjadi gelap.
+============================================================ */
+
+body.dark .panel,
+body.dark .project-card,
+body.dark .stat-card,
+body.dark .task-panel,
+body.dark .month-day,
+body.dark .modal-card,
+body.dark .auth-card,
+body.dark .calendar-head,
+body.dark .mini-calendar,
+body.dark .agenda,
+body.dark .schedule-title {
+  background: var(--card);
+}
+
+/* Warna hero saat dark mode. */
+
+body.dark .hero {
+  background: #37294f;
+}
+
+/* ============================================================
+   BAGIAN 66 — INPUT PADA DARK MODE
+   ============================================================ */
+
+body.dark .searchbox,
+body.dark .selectbox,
+body.dark .field input,
+body.dark .field select,
+body.dark .field textarea,
+body.dark .auth-card input {
+  background: #261f34;
+  color: #fff;
+  border-color: #4a3a5d;
+}
+
+/* Bagian tengah donut chart mengikuti warna kartu. */
+
+body.dark .donut span {
+  background: var(--card);
+}
+
+/* Checkbox tugas yang belum selesai saat dark mode. */
+
+body.dark .task-checkbox {
+  background: #372747;
+}
+
+/* Checkbox tugas selesai tetap ungu. */
+
+body.dark .task-checkbox.checked {
+  background: #8a57ce;
+}
+
+/* Kartu motivasi pada dark mode. */
+
+body.dark .focus-card {
+  background: #5d437d;
+}
+
+/* Kartu profil pada dark mode. */
+
+body.dark .profile-box {
+  background: #755a98;
+}
+
+/* Teks kecil profil saat dark mode. */
+
+body.dark .mini-user small {
+  color: #e7d9f5;
+}
+
+/* Warna kalender mini dan agenda ketika dark mode. */
+
+body.dark .profile-box .calendar-head,
+body.dark .profile-box .mini-calendar,
+body.dark .profile-box .agenda,
+body.dark .profile-box .schedule-title {
+  background: #352842;
+}
+
+/* Warna deskripsi proyek saat dark mode. */
+
+body.dark .project-card > small {
+  color: #bbb0c5;
+}
+
+/* ============================================================
+   BAGIAN 67 — RESPONSIVE DESIGN: LAYAR 1250PX
+   ============================================================
+
+   Media query digunakan untuk menyesuaikan layout
+   berdasarkan lebar layar perangkat.
+
+   max-width: 1250px berarti aturan di bawah aktif
+   ketika lebar viewport 1250px atau kurang.
+
+   Tujuannya agar dashboard tidak terlalu sempit.
+============================================================ */
+
+@media (max-width: 1250px) {
+
+  /* Memperkecil sidebar kiri dan kanan. */
+
+  .app {
+    grid-template-columns: 200px minmax(0, 1fr) 280px;
+  }
+
+  /* Mengurangi padding sidebar kiri. */
+
+  .sidebar {
+    padding: 30px 14px;
+  }
+
+  /* Mengurangi padding kanan. */
+
+  .rightbar {
+    padding-right: 12px;
+  }
+
+  /* Menyesuaikan jarak konten utama. */
+
+  .workspace {
+    padding: 24px 17px;
+  }
+
+  /* Memperkecil area ilustrasi hero. */
+
+  .hero-art {
+    width: 150px;
+  }
+
+  /* Memperkecil judul hero. */
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  /* Mengurangi jarak antar kartu proyek. */
+
+  .project-cards {
+    gap: 8px;
+  }
+
+  /* Mengurangi padding kartu proyek. */
+
+  .project-card {
+    padding: 13px;
+  }
+}
+
+/* ============================================================
+   BAGIAN 68 — RESPONSIVE DESIGN: LAYAR 1030PX
+   ============================================================
+
+   Pada layar lebih kecil:
+   - Rightbar disembunyikan
+   - Dashboard menjadi dua kolom
+   - Avatar atas ditampilkan
+
+   Tujuannya memberikan ruang lebih luas
+   untuk konten utama.
+============================================================ */
+
+@media (max-width: 1030px) {
+
+  /* Layout hanya sidebar kiri dan konten utama. */
+
+  .app {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  /* Sidebar kanan disembunyikan. */
+
+  .rightbar {
+    display: none;
+  }
+
+  /* Padding konten utama. */
+
+  .workspace {
+    padding: 23px;
+  }
+
+  /* Avatar header ditampilkan. */
+
+  .top-avatar {
+    display: grid;
+  }
+
+  /* Memperbesar area ilustrasi karena ruang tersedia. */
+
+  .hero-art {
+    width: 220px;
+  }
+
+  /* Padding kartu proyek. */
+
+  .project-card {
+    padding: 16px;
+  }
+}
+
+/* ============================================================
+   BAGIAN 69 — RESPONSIVE DESIGN: HP / LAYAR 720PX
+   ============================================================
+
+   Bagian ini mengatur tampilan mobile.
+
+   Perubahan utama:
+   1. Sidebar berpindah ke bawah layar
+   2. Konten menggunakan satu kolom
+   3. Komponen diperkecil
+   4. Beberapa elemen dekoratif disembunyikan
+   5. Navigasi dibuat seperti bottom navigation
+============================================================ */
+
+@media (max-width: 720px) {
+
+  /* Mengubah layout aplikasi menjadi block. */
+
+  .app {
+    display: block;
+    padding-bottom: 72px;
+  }
+
+  /* ========================================================
+     SIDEBAR MOBILE
+
+     Sidebar berubah menjadi navigasi bawah yang tetap
+     terlihat saat halaman digulir.
+  ======================================================== */
+
+  .sidebar {
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    height: 65px;
+    border-right: 0;
+    border-top: 1px solid var(--border);
+    padding: 6px 8px;
+    background: var(--card);
+  }
+
+  /* Menyembunyikan logo dan menu bawah sidebar. */
+
+  .sidebar .brand,
+  .sidebar .nav-caption,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  /* Menu navigasi disusun secara horizontal. */
+
+  .nav {
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    gap: 0;
+  }
+
+  /* Teks menu berada di bawah ikon. */
+
+  .nav-link {
+    flex-direction: column;
+    gap: 4px;
+    width: auto;
+    min-width: 52px;
+    padding: 7px 5px;
+    font-size: 9px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  /* Ukuran ikon menu mobile. */
+
+  .nav-link .nav-icon {
+    font-size: 20px;
+  }
+
+  /* Badge jumlah tugas disembunyikan pada HP. */
+
+  .nav-pill {
+    display: none;
+  }
+
+  /* Menghapus garis aktif menu desktop. */
+
+  .nav-link.active {
+    box-shadow: none;
+  }
+
+  /* Padding konten utama pada layar HP. */
+
+  .workspace {
+    padding: 18px 13px 25px;
+  }
+
+  /* Mengurangi jarak bawah header. */
+
+  .topbar {
+    margin-bottom: 20px;
+  }
+
+  /* Tanggal disembunyikan untuk menghemat ruang. */
+
+  .today-label {
+    display: none;
+  }
+
+  /* ========================================================
+     HERO MOBILE
+  ======================================================== */
+
+  .hero {
+    padding: 22px;
+    min-height: 174px;
+  }
+
+  /* Area ilustrasi diperkecil. */
+
+  .hero-art {
+    width: 92px;
+  }
+
+  /* Ukuran orbit ilustrasi. */
+
+  .art-orbit {
+    width: 95px;
+    height: 95px;
+    border-width: 10px;
+  }
+
+  /* Ukuran ikon checklist. */
+
+  .art-check {
+    width: 50px;
+    height: 50px;
+    font-size: 27px;
+  }
+
+  /* Hiasan kartu kecil disembunyikan. */
+
+  .art-mini {
+    display: none;
+  }
+
+  /* Posisi bintang ilustrasi. */
+
+  .art-spark {
+    right: 0;
+  }
+
+  /* Judul hero lebih kecil. */
+
+  .hero h1 {
+    font-size: 21px;
+  }
+
+  /* Membatasi lebar deskripsi hero. */
+
+  .hero p {
+    max-width: 170px;
+  }
+
+  /* ========================================================
+     KARTU PROYEK MOBILE
+  ======================================================== */
+
+  /* Menampilkan dua kartu proyek per baris. */
+
+  .project-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Menyembunyikan kartu ketiga pada layar mobile ini. */
+
+  .project-card:nth-child(3) {
+    display: none;
+  }
+
+  /* ========================================================
+     GRAFIK DAN LAPORAN MOBILE
+  ======================================================== */
+
+  /* Mengubah dashboard dan laporan menjadi satu kolom. */
+
+  .dashboard-bottom,
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mengurangi jarak antar kartu statistik. */
+
+  .stat-grid {
+    gap: 7px;
+  }
+
+  /* Mengurangi padding kartu statistik. */
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  /* Angka statistik lebih kecil. */
+
+  .stat-card strong {
+    font-size: 21px;
+  }
+
+  /* Label statistik lebih kecil. */
+
+  .stat-card span:last-child {
+    font-size: 9px;
+  }
+
+  /* ========================================================
+     KALENDER MOBILE
+  ======================================================== */
+
+  /* Mengurangi jarak antar tanggal. */
+
+  .month-grid {
+    gap: 3px;
+  }
+
+  /* Ukuran kotak kalender lebih kecil. */
+
+  .month-day {
+    min-height: 62px;
+    padding: 5px;
+  }
+
+  /* Ukuran teks tugas pada kalender. */
+
+  .month-day .day-task {
+    font-size: 7px;
+  }
+
+  /* Ukuran judul halaman mobile. */
+
+  .page-title h1 {
+    font-size: 22px;
+  }
+}
+
+/* ============================================================
+   BAGIAN 70 — RESPONSIVE DESIGN: HP KECIL 390PX
+   ============================================================
+
+   Aturan ini berlaku untuk layar yang sangat kecil.
+
+   Tujuannya:
+   - Menampilkan kartu proyek satu kolom
+   - Menyembunyikan ilustrasi hero
+   - Menyusun formulir satu kolom
+   - Mengecilkan padding modal
+============================================================ */
+
+@media (max-width: 390px) {
+
+  /* Kartu proyek menggunakan satu kolom. */
+
+  .project-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Kartu ketiga ditampilkan kembali. */
+
+  .project-card:nth-child(3) {
+    display: block;
+  }
+
+  /* Menyembunyikan ilustrasi hero agar teks lebih luas. */
+
+  .hero-art {
+    display: none;
+  }
+
+  /* Formulir menjadi satu kolom. */
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Memperkecil padding modal pada HP kecil. */
+
+  .modal-card {
+    padding: 18px;
+  }
+}
+
+/* ============================================================
+   AKHIR FILE assets/style.css
+
+   KESIMPULAN:
+
+   CSS Fatay menggunakan:
+   - CSS Variables
+   - Flexbox
+   - CSS Grid
+   - Pseudo-class dan pseudo-element
+   - Linear Gradient dan Conic Gradient
+   - Responsive Media Queries
+   - Dark Mode dengan class body.dark
+
+   CSS hanya mengatur tampilan.
+   Proses login, CRUD, kalender, dan database
+   dikelola oleh JavaScript dan backend PHP.
+
+   Seluruh aturan asli dipertahankan.
+============================================================ */
